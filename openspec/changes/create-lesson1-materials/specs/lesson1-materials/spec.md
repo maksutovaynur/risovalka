@@ -1,14 +1,14 @@
 ## ADDED Requirements
 
 ### Requirement: Lesson 1 directory structure
-The repository SHALL provide a top-level `lesson1/` directory containing the complete first lesson package.
+The repository SHALL provide a `lessons/lesson1/` directory containing the complete first lesson package.
 
 #### Scenario: Lesson package files exist
-- **WHEN** a contributor lists `lesson1/`
+- **WHEN** a contributor lists `lessons/lesson1/`
 - **THEN** the directory contains `lesson1_slides.marp.md`, `lesson1_slides.pdf`, `lesson1_guide.md`, `lesson1_guide.pdf`, `achivements.md`, `achivements.pdf`, `samples/`, and `puzzles/`
 
 #### Scenario: Lesson examples are numbered
-- **WHEN** a contributor lists `lesson1/samples/` and `lesson1/puzzles/`
+- **WHEN** a contributor lists `lessons/lesson1/samples/` and `lessons/lesson1/puzzles/`
 - **THEN** Python files use two-digit numeric prefixes such as `01_<name>.py`
 
 ### Requirement: Russian student-facing language
@@ -19,7 +19,7 @@ All lesson 1 student-facing materials SHALL be written in Russian.
 - **THEN** visible instructional text and code comments intended for students are in Russian
 
 ### Requirement: Lesson 1 slides
-`lesson1/lesson1_slides.marp.md` SHALL provide a specific, visual, diagram-heavy, student-addressed, approximately 20-minute theory deck for the first lesson.
+`lessons/lesson1/lesson1_slides.marp.md` SHALL provide a specific, visual, diagram-heavy, student-addressed, approximately 20-minute theory deck for the first lesson.
 
 #### Scenario: Slide deck has required progression
 - **WHEN** a reviewer reads the slide deck
@@ -27,7 +27,11 @@ All lesson 1 student-facing materials SHALL be written in Russian.
 
 #### Scenario: Slide deck covers first lesson concepts
 - **WHEN** a reviewer reads the slide deck
-- **THEN** it covers the course overview, programming motivation, today's project announcement, raster graphics, color on a computer, coordinate grid, vectors, basic programming operations, variables, function calls, and basics of `risovalka.gamekit`
+- **THEN** it covers the course overview, programming motivation, today's project definition, raster graphics, color on a computer, coordinate grid, vectors, basic programming operations, variables, function calls, and basics of `risovalka.gamekit`
+
+#### Scenario: Slide deck teases future control flow
+- **WHEN** a reviewer reads slides that mention loops or `if`
+- **THEN** those concepts are presented only as teaser concepts for questions or future lessons, not as required lesson 1 practice topics
 
 #### Scenario: Slide deck uses relevant visuals
 - **WHEN** a reviewer inspects slide images or diagrams
@@ -39,14 +43,29 @@ All lesson 1 student-facing materials SHALL be written in Russian.
 
 #### Scenario: Slide deck uses diagrams for graphics concepts
 - **WHEN** a reviewer inspects slides about raster graphics, color, coordinates, vectors, or drawing order
-- **THEN** those slides use diagrams, annotated screenshots, visual examples, or generated explanatory images rather than prose-only explanation
+- **THEN** those slides use maintainable hand-made diagrams, annotated screenshots, visual examples, or fixed generated PNG images rather than prose-only explanation
+
+#### Scenario: Slide deck balances visual asset types
+- **WHEN** a reviewer inspects the deck visuals
+- **THEN** the deck uses both maintainable hand-made diagrams and fixed generated PNG visuals, with neither type dominating the visual explanation
+
+### Requirement: Lesson 1 project definition
+Lesson 1 SHALL define today's project as a first game scene plus a small manual animation, with optional variable parts tracked by achievements.
+
+#### Scenario: Project required part is clear
+- **WHEN** a student reads the slides or guide
+- **THEN** they can identify that the required lesson 1 result is a first game scene and a small manual animation
+
+#### Scenario: Project variation is achievement-driven
+- **WHEN** a student reads `achivements.md`
+- **THEN** they can choose optional variations or improvements that personalize today's project
 
 ### Requirement: Lesson 1 guide
-`lesson1/lesson1_guide.md` SHALL provide a detailed practical guide for completing the first lesson without spoiling discovery-based insights.
+`lessons/lesson1/lesson1_guide.md` SHALL provide a detailed practical guide for completing the first lesson without spoiling discovery-based insights.
 
 #### Scenario: Guide covers setup and first run
 - **WHEN** a student follows the guide
-- **THEN** it explains how to install Python, VS Code, recommended VS Code plugins, open the project, and run a lesson sample
+- **THEN** it explains how to install Python, VS Code, recommended VS Code plugins, open the project, and run a lesson sample with Windows as the primary setup path and brief macOS/Linux notes
 
 #### Scenario: Guide covers editor basics
 - **WHEN** a student reads the guide before editing code
@@ -57,25 +76,37 @@ All lesson 1 student-facing materials SHALL be written in Russian.
 - **THEN** it explains common beginner errors such as `SyntaxError`, `NameError`, `IndentationError`, `TypeError`, file path mistakes, and letter case mistakes in simple Russian
 
 ### Requirement: Lesson 1 achievements
-`lesson1/achivements.md` SHALL provide a practical checklist or checkbox grid of achievements for lesson 1.
+`lessons/lesson1/achivements.md` SHALL provide a practical checklist or checkbox grid of achievements for lesson 1.
 
 #### Scenario: Achievements guide practical progress
 - **WHEN** students work during the practical part
 - **THEN** they can mark completed outcomes for environment setup, running a sample, changing drawing parameters, using coordinates, using colors, fixing at least one puzzle, and making a small personal change to today's project
 
 ### Requirement: Lesson 1 samples
-`lesson1/samples/` SHALL contain runnable Python examples demonstrated during lecture and reusable during practice.
+`lessons/lesson1/samples/` SHALL contain about five runnable Python examples demonstrated during lecture and reusable during practice.
+
+#### Scenario: Samples are stable references
+- **WHEN** a student runs any lesson 1 sample file
+- **THEN** the sample demonstrates predictable behavior suitable for reuse during practice
 
 #### Scenario: Samples demonstrate available gamekit basics
 - **WHEN** a student runs the sample files
 - **THEN** the samples demonstrate available `risovalka.gamekit` basics such as opening a window, clearing the canvas, setting fill/stroke color, drawing shapes, drawing text, using coordinates, using variables, calling functions, and using `Point` or `Vector`
+
+#### Scenario: Samples stay open
+- **WHEN** a student runs any lesson 1 sample file
+- **THEN** the game window remains open until the student closes it
 
 #### Scenario: Samples have concise Russian comments
 - **WHEN** a reviewer reads sample source code
 - **THEN** comments are concise, understandable, and written in Russian
 
 ### Requirement: Lesson 1 puzzles
-`lesson1/puzzles/` SHALL contain runnable Python puzzle files with intentional beginner-level errors for students to fix.
+`lessons/lesson1/puzzles/` SHALL contain about five runnable Python puzzle files with intentional beginner-level errors for students to fix.
+
+#### Scenario: Puzzles are diagnostic playgrounds
+- **WHEN** a student runs or edits any lesson 1 puzzle file
+- **THEN** the puzzle exposes an intentional problem, broken behavior, or surprising result for the student to diagnose and repair
 
 #### Scenario: Puzzle comments do not spoil solutions
 - **WHEN** a reviewer reads puzzle source code comments
@@ -83,11 +114,15 @@ All lesson 1 student-facing materials SHALL be written in Russian.
 
 #### Scenario: Puzzles match lesson concepts
 - **WHEN** students attempt the puzzle files
-- **THEN** the broken code exercises lesson 1 concepts such as function calls, arithmetic, variables, coordinates, colors, simple conditions, simple loops, or `gamekit` drawing calls
+- **THEN** the broken code exercises lesson 1 concepts such as function calls, arithmetic, variables, coordinates, colors, or `gamekit` drawing calls
 
 ### Requirement: Lesson 1 PDFs
-The repository SHALL include PDF outputs for the first lesson slides, guide, and achievements.
+The repository SHALL include generated-in-advance PDF outputs for the first lesson slides, guide, and achievements.
 
 #### Scenario: PDF deliverables exist
-- **WHEN** a contributor lists `lesson1/`
+- **WHEN** a contributor lists `lessons/lesson1/`
 - **THEN** `lesson1_slides.pdf`, `lesson1_guide.pdf`, and `achivements.pdf` are present next to their source files
+
+#### Scenario: Students can read PDFs without build tooling
+- **WHEN** a student opens the lesson 1 PDF files
+- **THEN** the files are readable without installing Marp or Markdown build tools

@@ -33,9 +33,9 @@
 
 Исходный формат: **Marp Markdown**. Файлы открываются и редактируются в VS Code на Linux и Windows.
 
-- [P0 — Вводная презентация: зачем программировать](presentations/P0_intro_programming.marp.md)
-- [P1 — Сессия 1: графика и первые кадры](presentations/P1_session1_graphics.marp.md)
-- [P2 — Сессия 2: игровой цикл и ввод](presentations/P2_session2_game_loop_input.marp.md)
+- [Legacy P0 — Вводная презентация: зачем программировать](presentations_legacy/P0_intro_programming.marp.md)
+- [Legacy P1 — Сессия 1: графика и первые кадры](presentations_legacy/P1_session1_graphics.marp.md)
+- [Legacy P2 — Сессия 2: игровой цикл и ввод](presentations_legacy/P2_session2_game_loop_input.marp.md)
 
 Презентации deliberately сделаны лёгкими: мало текста, много визуальных метафор, код почти не грузит слайды. Кодовые демонстрации должны жить в редакторе и в папках `examples/` / `sessions/`.
 

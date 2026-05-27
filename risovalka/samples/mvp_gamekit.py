@@ -1,5 +1,8 @@
 import random
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from risovalka.gamekit import Object, Point, Rotation, Size, Vector, game, geometry
 
@@ -25,6 +28,8 @@ TARGET_IMAGE_PATH = ASSET_ROOT / "crosshair-pack" / "PNG" / "Black Retina" / "cr
 
 STAR_SIZE = Size(180, 180)
 STAR_POLYGON = geometry.generate_star((0, 0), 45, 90, 5)
+MAX_ENEMIES = 8
+HERO_HIT_RADIUS = 62
 
 
 def main():
@@ -55,48 +60,81 @@ def load_assets():
 def create_world():
     return Object(
         hero=Object(position=Point(400, 260), angle=0, angular_speed=100, speed=180),
-        targets=create_targets(),
+        enemies=[create_enemy() for _ in range(5)],
         bullets=[],
         spark_trail=[],
         explosions=[],
         next_bullet_time=0,
+        next_enemy_time=1.0,
+        started_at=game.get_time(),
+        score=0,
+        game_over=False,
         mouse=Point(0, 0),
     )
 
 
-def create_targets():
-    return [
-        Object(
-            points=geometry.generate_regular_polygon((0, 0), 48, 6),
-            position=Point(160, 140),
-            angle=12,
-            color="orange",
-        ),
-        Object(
-            points=[Point(-70, -45), Point(70, -45), Point(70, 45), Point(-70, 45)],
-            position=Point(330, 135),
-            angle=-8,
-            color="#44aaffff",
-        ),
-        Object(
-            points=geometry.generate_star((0, 0), 24, 56, 7),
-            position=Point(610, 210),
-            angle=0,
-            color="#9f7affff",
-        ),
-    ]
+def create_enemy():
+    spawn_margin = 120
+    side = random.choice(["left", "right", "top", "bottom"])
+    if side == "left":
+        position = Point(-spawn_margin, random.uniform(0, game.window_size.height))
+    elif side == "right":
+        position = Point(game.window_size.width + spawn_margin, random.uniform(0, game.window_size.height))
+    elif side == "top":
+        position = Point(random.uniform(0, game.window_size.width), -spawn_margin)
+    else:
+        position = Point(random.uniform(0, game.window_size.width), game.window_size.height + spawn_margin)
+
+    shape = random.choice(["hex", "box", "star"])
+    if shape == "hex":
+        points = geometry.generate_regular_polygon((0, 0), 48, 6)
+        color = "orange"
+    elif shape == "box":
+        points = [Point(-56, -40), Point(56, -40), Point(56, 40), Point(-56, 40)]
+        color = "#44aaffff"
+    else:
+        points = geometry.generate_star((0, 0), 24, 56, 7)
+        color = "#9f7affff"
+
+    return Object(
+        points=points,
+        position=position,
+        angle=random.uniform(0, 360),
+        spin=random.uniform(-45, 45),
+        speed=random.uniform(35, 72),
+        color=color,
+    )
 
 
 def update_world(world):
     dt = game.get_delta_time()
     world.mouse = game.get_mouse_position()
 
+    if world.game_over:
+        update_explosions(world.explosions, dt)
+        return
+
+    world.score = game.get_time() - world.started_at
     update_hero(world.hero, world.spark_trail, dt)
+    update_enemies(world, dt)
     update_sparks(world.spark_trail, dt)
     update_shooting(world)
     update_bullets(world.bullets, dt)
     resolve_bullet_collisions(world)
+    resolve_hero_collision(world)
     update_explosions(world.explosions, dt)
+
+
+def update_enemies(world, dt):
+    if len(world.enemies) < MAX_ENEMIES and game.get_time() >= world.next_enemy_time:
+        world.enemies.append(create_enemy())
+        world.next_enemy_time = game.get_time() + random.uniform(0.65, 1.35)
+
+    for enemy in world.enemies:
+        direction = world.hero.position - enemy.position
+        if direction.size() > 0:
+            enemy.position += direction / direction.size() * enemy.speed * dt
+        enemy.angle += enemy.spin * dt
 
 
 def update_hero(hero, spark_trail, dt):
@@ -177,22 +215,31 @@ def is_bullet_alive(bullet):
 def resolve_bullet_collisions(world):
     remaining_bullets = []
     for bullet in world.bullets:
-        target = find_hit_target(bullet, world.targets)
-        if target is None:
+        enemy = find_hit_enemy(bullet, world.enemies)
+        if enemy is None:
             remaining_bullets.append(bullet)
             continue
 
-        world.targets.remove(target)
+        world.enemies.remove(enemy)
         world.explosions.append(create_timed_effect(bullet.position))
 
     world.bullets[:] = remaining_bullets
 
 
-def find_hit_target(bullet, targets):
-    for target in targets:
-        if is_point_inside_polygon(bullet.position, polygon_points(target)):
-            return target
+def find_hit_enemy(bullet, enemies):
+    for enemy in enemies:
+        if is_point_inside_polygon(bullet.position, polygon_points(enemy)):
+            return enemy
     return None
+
+
+def resolve_hero_collision(world):
+    for enemy in world.enemies:
+        if (enemy.position - world.hero.position).size() <= HERO_HIT_RADIUS:
+            world.game_over = True
+            world.score = game.get_time() - world.started_at
+            world.explosions.append(create_timed_effect(world.hero.position))
+            return
 
 
 def update_explosions(explosions, dt):
@@ -214,19 +261,21 @@ def draw_world(world, assets):
     game.set_fill_shader(assets.water, size=(100, None))
     game.clear_canvas()
 
-    draw_targets(world.targets)
+    draw_enemies(world.enemies)
     draw_sparks(world.spark_trail, assets.spark_images, world.hero.angle)
     draw_hero(world.hero, assets.star_texture)
     draw_bullets(world.bullets)
     draw_explosions(world.explosions, assets.explosion_images)
     draw_cursor(world.mouse, assets.target_image)
-    draw_hud()
+    draw_hud(world)
+    if world.game_over:
+        draw_game_over(world.score)
 
 
-def draw_targets(targets):
-    for target in targets:
-        game.set_fill_color(target.color)
-        game.draw_polygon(polygon_points(target))
+def draw_enemies(enemies):
+    for enemy in enemies:
+        game.set_fill_color(enemy.color)
+        game.draw_polygon(polygon_points(enemy))
 
 
 def draw_sparks(spark_trail, spark_images, hero_angle):
@@ -274,10 +323,16 @@ def draw_cursor(mouse, target_image):
     draw_centered_image(target_image, mouse, Size(48, 48), Rotation(game.get_time() * 45, mouse))
 
 
-def draw_hud():
+def draw_hud(world):
     game.set_fill_color("white")
-    game.draw_text(f"FPS: {game.get_fps():.0f}", Point(20, 20), size=18)
-    game.draw_text("Стрелки двигают звезду, SPACE вращает, мышь стреляет", Point(20, 48), size=16)
+    game.draw_text(f"Очки: {world.score:.1f}", Point(20, 20), size=24)
+    game.draw_text(f"FPS: {game.get_fps():.0f}", Point(20, 52), size=16)
+    game.draw_text("Стрелки двигают звезду, SPACE вращает, мышь стреляет", Point(20, 76), size=16)
+
+
+def draw_game_over(score):
+    game.draw_text(f"Вы проиграли! Очков {score:.1f}", Point(170, 250), size=42, color="red")
+    game.draw_text("Закройте окно и запустите снова", Point(230, 310), size=24, color="white")
 
 
 def draw_centered_image(image, center, size, rotation):

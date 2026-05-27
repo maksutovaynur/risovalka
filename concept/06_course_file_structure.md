@@ -6,7 +6,6 @@
 game-course/
   README.md
   docs/
-  presentations/
   student_materials/
   teacher_materials/
   risovalka/
@@ -22,12 +21,32 @@ game-course/
 
 Концептуальные документы курса.
 
-## `presentations/`
+## `lessons/`
 
-Исходники Marp и изображения.
+Актуальные материалы занятий лежат в `lessons/`.
 
 ```text
-presentations/
+lessons/
+  setup_links.md
+  lesson1/
+    lesson1_slides.marp.md
+    lesson1_slides.pdf
+    lesson1_guide.md
+    lesson1_guide.pdf
+    achivements.md
+    achivements.pdf
+    samples/
+    puzzles/
+```
+
+## `concept/presentations_legacy/`
+
+Ранние презентации сохранены как legacy-архив идей. Новые материалы уроков не нужно добавлять в эту папку.
+
+Старые исходники Marp и изображения:
+
+```text
+concept/presentations_legacy/
   P0_intro_programming.marp.md
   P1_session1_graphics.marp.md
   P2_session2_game_loop_input.marp.md
