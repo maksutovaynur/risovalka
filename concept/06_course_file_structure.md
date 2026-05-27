@@ -9,11 +9,9 @@ game-course/
   presentations/
   student_materials/
   teacher_materials/
-  engine/
-  examples/
+  risovalka/
   sessions/
   assets/
-  tools/
   build/
   .vscode/
   pyproject.toml
@@ -38,12 +36,13 @@ presentations/
   images/
 ```
 
-## `engine/`
+## `risovalka/`
 
-Учебный игровой движок.
+Python-пакет проекта: учебный движок, вспомогательные инструменты и примеры.
 
 ```text
-engine/
+risovalka/
+  __init__.py
   gamekit/
     __init__.py
     game.py
@@ -53,14 +52,28 @@ engine/
     collision.py
     camera.py
     effects.py
+  tools/
+    __init__.py
+    raster/
+      __init__.py
+    vector/
+      __init__.py
+  samples/
+    __init__.py
 ```
+
+- `risovalka.gamekit` — учебный игровой движок.
+- `risovalka.tools.raster` — bitmap/растровая рисовалка для ассетов.
+- `risovalka.tools.vector` — векторная рисовалка с экспортом SVG и команд `game.draw_*`.
+- `risovalka.samples` — примеры использования движка.
 
 ## `sessions/`
 
-Материалы занятий.
+Материалы занятий и импортируемый пакет шаблонов сессий.
 
 ```text
 sessions/
+  __init__.py
   session_1/
   session_2/
   session_3/
@@ -70,16 +83,6 @@ sessions/
 ## `assets/`
 
 Библиотека ассетов: фоны, персонажи, предметы, эффекты, UI, шрифты, звуки.
-
-## `tools/`
-
-Вспомогательные редакторы:
-
-- bitmap-рисовалка;
-- редактор спрайтов;
-- векторная рисовалка;
-- генератор achievements/leaderboard;
-- экспорт материалов.
 
 ## `.vscode/`
 
