@@ -1,0 +1,9 @@
+[project]
+name = "game-course"
+version = "0.1.0"
+description = "Educational 2D game programming course for kids"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+package = false

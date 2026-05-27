@@ -1,0 +1,45 @@
+/* @theme game-course */
+@import 'default';
+
+section {
+  font-family: Inter, Arial, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 34px;
+  padding: 60px;
+}
+
+h1 {
+  font-size: 64px;
+  line-height: 1.05;
+  color: #0f172a;
+}
+
+h2 {
+  font-size: 46px;
+  color: #1d4ed8;
+}
+
+strong {
+  color: #ea580c;
+}
+
+blockquote {
+  border-left: 10px solid #38bdf8;
+  padding-left: 24px;
+  font-size: 42px;
+  color: #0f172a;
+}
+
+code {
+  font-size: 28px;
+}
+
+.small {
+  font-size: 24px;
+}
+
+.big {
+  font-size: 78px;
+  font-weight: 800;
+}

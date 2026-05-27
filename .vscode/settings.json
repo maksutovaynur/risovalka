@@ -1,0 +1,6 @@
+{
+  "python.defaultInterpreterPath": ".venv/bin/python",
+  "marp.preview.autoShow": true,
+  "files.encoding": "utf8",
+  "editor.formatOnSave": true
+}
