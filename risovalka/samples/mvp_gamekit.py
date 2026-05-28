@@ -53,7 +53,7 @@ def load_assets():
         spark_images=[game.load_image(path) for path in SPARK_IMAGE_PATHS],
         explosion_images=[game.load_image(path) for path in EXPLOSION_IMAGE_PATHS],
         target_image=game.load_image(TARGET_IMAGE_PATH),
-        water=game.load_shader("water"),
+        shader=game.load_shader("space"),
     )
 
 
@@ -257,8 +257,8 @@ def create_timed_effect(position):
 
 
 def draw_world(world, assets):
-    assets.water.set_param("time", game.get_time())
-    game.set_fill_shader(assets.water, size=(100, None))
+    assets.shader.set_param("time", game.get_time())
+    game.set_fill_shader(assets.shader)
     game.clear_canvas()
 
     draw_enemies(world.enemies)

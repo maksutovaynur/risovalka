@@ -27,6 +27,7 @@ class Shader:
 
 _SHADER_DIR = Path(__file__).with_name("shaders")
 BUILTIN_SHADERS: dict[str, Path] = {
+    "space": _SHADER_DIR / "space.glsl",
     "water": _SHADER_DIR / "water.glsl",
 }
 

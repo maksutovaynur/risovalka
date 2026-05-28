@@ -88,6 +88,9 @@ def test_shader_params_and_builtin(tmp_path):
     builtin = Game().load_shader("water")
     assert builtin.kind == "builtin"
     assert "time" in builtin.source
+    space = Game().load_shader("space")
+    assert space.kind == "builtin"
+    assert "star" in space.source
 
 
 def test_fill_defaults_use_origin_and_natural_sizes():
