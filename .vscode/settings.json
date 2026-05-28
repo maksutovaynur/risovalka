@@ -1,5 +1,6 @@
 {
   "python.defaultInterpreterPath": ".venv/bin/python",
+  "python.envFile": "${workspaceFolder}/.env",
   "marp.preview.autoShow": true,
   "files.encoding": "utf8",
   "editor.formatOnSave": true

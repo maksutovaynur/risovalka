@@ -16,7 +16,7 @@ The target lesson is introductory: students need motivation for programming, a c
 - Include puzzles with intentionally broken beginner-level code and minimal comments that describe the problem or give a hint.
 - Generate PDF outputs next to the Markdown/Marp sources.
 - Replace vague motivational filler with concrete project goals, diagrams, screenshots, visual examples, and references to exact lesson samples/puzzles.
-- Target about five samples and about five puzzles.
+- Target seven samples and six puzzles.
 - Make every sample keep its game window open until the student closes it.
 - Make samples stable and predictable, while puzzles are intentionally unstable, broken, or surprising playgrounds for diagnosis and repair.
 

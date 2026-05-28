@@ -1,8 +1,8 @@
 ## 1. Lesson Structure
 
 - [x] 1.1 Create `lessons/lesson1/`, `lessons/lesson1/samples/`, and `lessons/lesson1/puzzles/` directories
-- [x] 1.2 Add source placeholders or final sources for `lesson1_slides.marp.md`, `lesson1_guide.md`, and `achivements.md`
-- [x] 1.3 Add generated-in-advance `lesson1_slides.pdf`, `lesson1_guide.pdf`, and `achivements.pdf` next to their source files
+- [x] 1.2 Add source placeholders or final sources for `lesson0_slides.marp.md`, `lesson1_slides.marp.md`, `lesson1_guide.md`, and `achivements.md`
+- [x] 1.3 Add generated-in-advance `lesson0_slides.pdf`, `lesson1_slides.pdf`, `lesson1_guide.pdf`, and `achivements.pdf` next to their source files
 
 ## 2. Slide Deck
 
@@ -13,6 +13,7 @@
 - [x] 2.5 Use a balanced mix of maintainable hand-made diagrams and fixed generated PNG visuals
 - [x] 2.6 Ensure every image, diagram, or screenshot directly explains a course, graphics, programming, or project concept
 - [x] 2.7 Mention loops and `if` only as teaser concepts for questions or the next lesson, not as lesson 1 practice topics
+- [x] 2.8 Add Russian intro slides `lesson0_slides.marp.md` and `lesson0_slides.pdf` about programming, games, and AI agents
 
 ## 3. Lesson Guide
 
@@ -24,7 +25,7 @@
 
 ## 4. Samples
 
-- [x] 4.1 Add about five numbered runnable sample files under `lessons/lesson1/samples/`
+- [x] 4.1 Add seven numbered runnable sample files under `lessons/lesson1/samples/`
 - [x] 4.2 Cover available `risovalka.gamekit` basics: window setup, canvas clearing, fill/stroke colors, shape drawing, text drawing, coordinates, variables, function calls, and `Point` or `Vector`
 - [x] 4.3 Ensure every sample keeps its game window open until the student closes it
 - [x] 4.4 Ensure samples are stable, predictable reference programs suitable for reuse during practice
@@ -32,8 +33,8 @@
 
 ## 5. Puzzles
 
-- [x] 5.1 Add about five numbered runnable puzzle files under `lessons/lesson1/puzzles/` with intentional beginner-level errors
-- [x] 5.2 Include puzzle coverage for function calls, arithmetic, variables, coordinates, colors, and gamekit drawing calls
+- [x] 5.1 Add six numbered runnable puzzle files under `lessons/lesson1/puzzles/` with intentional beginner-level errors or broken scene behavior
+- [x] 5.2 Include puzzle coverage for drawing order, canvas clearing, frame timing, variables, coordinates, colors, image paths, and gamekit drawing calls
 - [x] 5.3 Make puzzles intentionally broken, unstable, or surprising playgrounds where students diagnose and repair the problem
 - [x] 5.4 Keep puzzle comments limited to the problem description and optional hint, without solution steps
 

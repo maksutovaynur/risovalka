@@ -89,88 +89,112 @@ size: 16:9
 
 <!-- _class: lead -->
 
-# Урок 1. Экран оживает
+# P1. Рисуем первый игровой мир
 
 ![bg right:50%](images/scene_goal.png)
 
-Тема занятия: **«Экран оживает»**.
-
-Пишем первую игровую сцену и небольшую покадровую анимацию.
+Окно, координаты, фигуры, картинки и первые кадры.
 
 ---
 
-# План на сегодня
+# Что сделаем сегодня
 
 <div class="grid-2">
-<div class="big-card">1. Запустим проект на Python</div>
-<div class="big-card">2. Нарисуем сцену</div>
-<div class="big-card">3. Поймём пиксели, цвет, координаты</div>
-<div class="big-card">4. Исправим первые ошибки</div>
+<div class="big-card">1. Откроем окно игры</div>
+<div class="big-card">2. Поставим объекты по координатам</div>
+<div class="big-card">3. Проверим порядок рисования</div>
+<div class="big-card">4. Соберём первые кадры движения</div>
 </div>
 
 ---
 
-# Проект урока
+# С чего начнём
 
-![bg right:52%](images/project_parts.png)
+![bg right:50%](images/scene_goal.png)
 
-**Обязательная часть**
+Сегодня мы впервые заставим компьютер нарисовать наш игровой мир.
 
-- окно игры;
-- фон;
-- 3+ объекта;
-- заголовок;
-- 3 кадра покадровой анимации.
+Поменял число — объект переехал.
+
+Поменял цвет — сцена стала другой.
 
 ---
 
-# Где будет ваша часть?
+# Окно игры
+
+![bg right:52%](images/project_parts.png)
+
+Окно — это сцена.
+
+В нём живут фон, герои, предметы, эффекты и текст.
+
+---
+
+# Практический результат
 
 <div class="achievement-map">
+<span>окно</span>
+<span>фон</span>
+<span>герой</span>
 <span>цвета</span>
 <span>координаты</span>
-<span>секретный объект</span>
-<span>забавная ошибка</span>
-<span>своя тема</span>
-<span>мини-мультфильм</span>
+<span>первые кадры</span>
 </div>
 
 Идеи для выбора: `lessons/lesson1/achivements.md`
 
 ---
 
-# Почему программирование важно
+# Экран как лист в клетку
 
-![bg right:50%](images/input_program_output.png)
+![bg right:55%](images/coordinate_grid.png)
 
-Игра — это диалог:
+Чтобы поставить объект, компьютеру нужен адрес.
 
-**действие игрока → правила → новый экран**
+Этот адрес — координаты `x` и `y`.
 
 ---
 
-# Компьютер не догадывается
+# Координаты
 
-<div class="pipeline">
-<div>очистить</div>
-<div>нарисовать фон</div>
-<div>нарисовать героя</div>
-<div>показать</div>
+![bg right:55%](images/coordinate_grid.png)
+
+`x` — вправо.
+
+`y` — вниз.
+
+Начало — левый верхний угол.
+
+---
+
+# Фигуры — строительные блоки
+
+<div class="code-map">
+<span>круг</span>
+<span>прямоугольник</span>
+<span>линия</span>
+<span>картинка</span>
+<span>текст</span>
+<span>фон</span>
 </div>
 
-Порядок команд — часть результата.
+Из простых деталей собирается игровая сцена.
 
 ---
 
-# Ошибка дня
+# Первые команды gamekit
 
-![bg right:50%](images/draw_order_bug.png)
+<div class="code-map">
+<span>set_window_size</span>
+<span>set_fill_color</span>
+<span>clear_canvas</span>
+<span>draw_circle</span>
+<span>draw_rectangle</span>
+<span>draw_text</span>
+<span>show_canvas</span>
+</div>
 
-Нарисовали героя.
-
-Потом очистили экран.
-
-Герой исчез.
+Это наши первые инструменты для рисования.
 
 ---
 
@@ -194,17 +218,19 @@ RGB:
 - G — зелёный;
 - B — синий.
 
+Сначала хватит готовых имён цветов.
+
+RGB и HEX — секретный уровень для точной настройки.
+
 ---
 
-# Координаты
+# Картинки из файлов
 
-![bg right:55%](images/coordinate_grid.png)
+![bg right:50%](images/final_showcase.png)
 
-`x` идёт вправо.
+В игре можно рисовать не только фигуры.
 
-`y` идёт вниз.
-
-Начало — левый верхний угол.
+Герой, монета, фон или значок могут быть обычными картинками из файлов.
 
 ---
 
@@ -218,66 +244,68 @@ RGB:
 
 ---
 
-# Первые команды gamekit
-
-<div class="code-map">
-<span>set_window_size</span>
-<span>set_fill_color</span>
-<span>clear_canvas</span>
-<span>draw_circle</span>
-<span>draw_rectangle</span>
-<span>draw_text</span>
-<span>show_canvas</span>
-</div>
-
-Это наши первые инструменты для рисования.
-
----
-
-# Числа и арифметика
-
-<div class="diagram-row">
-<div class="formula">центр = ширина / 2</div>
-<div class="formula">земля = высота - 90</div>
-<div class="formula">звезда = x + 40</div>
-</div>
-
-Код считает координаты за нас.
-
----
-
-# Переменные
-
-<div class="variable-box">
-<b>hero_x</b>
-<span>320</span>
-</div>
-
-Имя помогает не искать число по всему файлу.
-
----
-
-# Функции
+# Порядок рисования
 
 <div class="pipeline">
-<div>draw_sky()</div>
-<div>draw_ground()</div>
-<div>draw_hero()</div>
-<div>draw_title()</div>
+<div>нарисовать фон</div>
+<div>нарисовать героя</div>
+<div>нарисовать текст</div>
+<div>показать</div>
 </div>
 
-Функция — своя команда.
+Кто нарисован позже — тот сверху.
 
 ---
 
-# Если останется время
+# Ошибка дня
 
-<div class="grid-2">
-<div class="big-card">`if`<br>если нажата кнопка</div>
-<div class="big-card">`while`<br>повторяй кадры</div>
+![bg right:50%](images/draw_order_bug.png)
+
+Фон нарисовали после героя.
+
+Фон закрыл героя.
+
+---
+
+# Очистка экрана
+
+<div class="pipeline">
+<div>очистить</div>
+<div>нарисовать новую картинку</div>
+<div>показать</div>
+<div>подождать</div>
 </div>
 
-Подробно разберём на следующем уроке.
+Если не очищать экран, объект оставит след.
+
+Иногда это ошибка. Иногда — интересный эффект.
+
+---
+
+# Первые кадры
+
+<div class="pipeline">
+<div>кадр 1</div>
+<div>кадр 2</div>
+<div>кадр 3</div>
+<div>движение</div>
+</div>
+
+Объект не «едет» сам.
+
+Мы быстро показываем несколько картинок подряд.
+
+---
+
+# Зачем нужен sleep
+
+`sleep` делает паузу.
+
+Без паузы кадр промелькнёт слишком быстро.
+
+Сегодня это мультфильм руками.
+
+Настоящий игровой цикл — на следующем занятии.
 
 ---
 
@@ -290,6 +318,28 @@ RGB:
 - `lessons/lesson1/samples/03_coordinate_map.py`
 - `lessons/lesson1/samples/04_vectors.py`
 - `lessons/lesson1/samples/05_manual_animation.py`
+- `lessons/lesson1/samples/06_repeated_object.py`
+- `lessons/lesson1/samples/07_example_use_function.py`
+
+---
+
+# Зачем потом понадобятся свои команды
+
+Откройте `06_repeated_object.py`.
+
+Один и тот же робот нарисован несколько раз.
+
+Код повторяется. Позже мы научимся превращать такой повтор в свою команду.
+
+---
+
+# Как выглядит решение
+
+Откройте `07_example_use_function.py`.
+
+Повторяющийся робот спрятан в одну команду:
+
+`draw_robot(120, 210)`
 
 ---
 
@@ -297,11 +347,12 @@ RGB:
 
 Почините:
 
-- `lessons/lesson1/puzzles/01_wrong_order.py`
-- `lessons/lesson1/puzzles/02_name_mistake.py`
-- `lessons/lesson1/puzzles/03_lost_object.py`
-- `lessons/lesson1/puzzles/04_unknown_color.py`
-- `lessons/lesson1/puzzles/05_missing_argument.py`
+- `lessons/lesson1/puzzles/01_invisible_scene.py`
+- `lessons/lesson1/puzzles/02_python_messages.py`
+- `lessons/lesson1/puzzles/03_animation_too_fast.py`
+- `lessons/lesson1/puzzles/04_traces_or_bug.py`
+- `lessons/lesson1/puzzles/05_background_covers_hero.py`
+- `lessons/lesson1/puzzles/06_missing_picture.py`
 
 ---
 
@@ -309,7 +360,7 @@ RGB:
 
 ![bg right:52%](images/final_showcase.png)
 
-Покажите сцену и ответьте:
+Покажите свой мир и ответьте:
 
 **что вы изменили сами?**
 
@@ -318,6 +369,6 @@ RGB:
 # После урока
 
 1. Открой инструкцию: `lessons/lesson1/lesson1_guide.md`.
-2. Повтори запуск образца.
+2. Повтори запуск примера.
 3. Выбери 2 достижения.
 4. Исправь 1 задание-поломку.

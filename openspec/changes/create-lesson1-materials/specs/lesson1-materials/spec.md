@@ -5,7 +5,14 @@ The repository SHALL provide a `lessons/lesson1/` directory containing the compl
 
 #### Scenario: Lesson package files exist
 - **WHEN** a contributor lists `lessons/lesson1/`
-- **THEN** the directory contains `lesson1_slides.marp.md`, `lesson1_slides.pdf`, `lesson1_guide.md`, `lesson1_guide.pdf`, `achivements.md`, `achivements.pdf`, `samples/`, and `puzzles/`
+- **THEN** the directory contains `lesson0_slides.marp.md`, `lesson0_slides.pdf`, `lesson1_slides.marp.md`, `lesson1_slides.pdf`, `lesson1_guide.md`, `lesson1_guide.pdf`, `achivements.md`, `achivements.pdf`, `samples/`, and `puzzles/`
+
+### Requirement: Intro slides
+`lessons/lesson1/lesson0_slides.marp.md` SHALL provide a Russian introductory lecture titled "Как код оживляет игры" about why programming matters in the age of AI agents.
+
+#### Scenario: Intro deck covers course motivation
+- **WHEN** a reviewer reads the intro slide deck
+- **THEN** it explains that programming is precise instruction, computers are literal, programs follow input-processing-output, programming languages are communication tools, games give immediate visual feedback, and AI agents still need a person who understands goals and checks results
 
 #### Scenario: Lesson examples are numbered
 - **WHEN** a contributor lists `lessons/lesson1/samples/` and `lessons/lesson1/puzzles/`
@@ -83,7 +90,7 @@ Lesson 1 SHALL define today's project as a first game scene plus a small manual 
 - **THEN** they can mark completed outcomes for environment setup, running a sample, changing drawing parameters, using coordinates, using colors, fixing at least one puzzle, and making a small personal change to today's project
 
 ### Requirement: Lesson 1 samples
-`lessons/lesson1/samples/` SHALL contain about five runnable Python examples demonstrated during lecture and reusable during practice.
+`lessons/lesson1/samples/` SHALL contain seven runnable Python examples demonstrated during lecture and reusable during practice.
 
 #### Scenario: Samples are stable references
 - **WHEN** a student runs any lesson 1 sample file
@@ -92,6 +99,10 @@ Lesson 1 SHALL define today's project as a first game scene plus a small manual 
 #### Scenario: Samples demonstrate available gamekit basics
 - **WHEN** a student runs the sample files
 - **THEN** the samples demonstrate available `risovalka.gamekit` basics such as opening a window, clearing the canvas, setting fill/stroke color, drawing shapes, drawing text, using coordinates, using variables, calling functions, and using `Point` or `Vector`
+
+#### Scenario: Samples include repeated-code function motivation
+- **WHEN** a reviewer lists the lesson 1 samples
+- **THEN** one sample shows repeated drawing of the same complex object without a function and another sample shows the same repeated problem solved with a small function
 
 #### Scenario: Samples stay open
 - **WHEN** a student runs any lesson 1 sample file
@@ -102,7 +113,7 @@ Lesson 1 SHALL define today's project as a first game scene plus a small manual 
 - **THEN** comments are concise, understandable, and written in Russian
 
 ### Requirement: Lesson 1 puzzles
-`lessons/lesson1/puzzles/` SHALL contain about five runnable Python puzzle files with intentional beginner-level errors for students to fix.
+`lessons/lesson1/puzzles/` SHALL contain six runnable Python puzzle files with intentional beginner-level errors or broken scene behavior for students to fix.
 
 #### Scenario: Puzzles are diagnostic playgrounds
 - **WHEN** a student runs or edits any lesson 1 puzzle file
@@ -114,14 +125,14 @@ Lesson 1 SHALL define today's project as a first game scene plus a small manual 
 
 #### Scenario: Puzzles match lesson concepts
 - **WHEN** students attempt the puzzle files
-- **THEN** the broken code exercises lesson 1 concepts such as function calls, arithmetic, variables, coordinates, colors, or `gamekit` drawing calls
+- **THEN** the broken code exercises lesson 1 concepts such as drawing order, canvas clearing, frame timing, coordinates, colors, image paths, or `gamekit` drawing calls
 
 ### Requirement: Lesson 1 PDFs
 The repository SHALL include generated-in-advance PDF outputs for the first lesson slides, guide, and achievements.
 
 #### Scenario: PDF deliverables exist
 - **WHEN** a contributor lists `lessons/lesson1/`
-- **THEN** `lesson1_slides.pdf`, `lesson1_guide.pdf`, and `achivements.pdf` are present next to their source files
+- **THEN** `lesson0_slides.pdf`, `lesson1_slides.pdf`, `lesson1_guide.pdf`, and `achivements.pdf` are present next to their source files
 
 #### Scenario: Students can read PDFs without build tooling
 - **WHEN** a student opens the lesson 1 PDF files

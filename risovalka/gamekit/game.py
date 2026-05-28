@@ -109,8 +109,11 @@ class Game:
 
     def wait_close(self) -> None:
         self.open()
-        while not self._close_clicked:
+        if self._frame_items:
             self.show_canvas()
+        while not self._close_clicked:
+            if self._window is not None:
+                self._window.dispatch_events()
             self.sleep(0.02)
 
     def is_close_clicked(self) -> bool:
