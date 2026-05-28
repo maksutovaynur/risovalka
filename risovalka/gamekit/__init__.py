@@ -1,6 +1,6 @@
 """Educational 2D game engine package."""
 
-from . import geometry
+from . import file, geometry
 from .assets import Image, Shader
 from .colors import Color
 from .game import Game
@@ -20,6 +20,7 @@ __all__ = [
     "Shader",
     "Size",
     "Vector",
+    "file",
     "geometry",
     "geometry_tools",
     "game",

@@ -48,7 +48,7 @@ class Game:
         self._fullscreen = False
         self._window_size = Size(width, height)
         self._fill = _FillState("color", Color("black"))
-        self._stroke_color = Color("transparent")
+        self._stroke_color = Color("black")
         self._stroke_width = 1.0
         self._stroke_style = "solid"
         self._keys_down: set[str] = set()
@@ -85,7 +85,7 @@ class Game:
         if self._window is not None:
             self._window.set_size(int(width), int(height))
 
-    def set_window_fullscreen(self, enabled: bool) -> None:
+    def set_window_fullscreen(self, enabled: bool = True) -> None:
         self._fullscreen = bool(enabled)
         if self._window is not None:
             self._window.set_fullscreen(self._fullscreen)

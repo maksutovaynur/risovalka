@@ -128,6 +128,11 @@ def test_mvp_sample_logic_with_fake_game():
     )
 
 
+def test_mvp_sample_does_not_mutate_import_path():
+    source = SAMPLE_PATH.read_text(encoding="utf-8")
+    assert "sys.path.insert" not in source
+
+
 def test_mvp_sample_real_window_smoke():
     pytest.importorskip("pyglet")
     if os.environ.get("DISPLAY") is None and os.environ.get("WAYLAND_DISPLAY") is None:

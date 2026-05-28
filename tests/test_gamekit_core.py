@@ -1,5 +1,6 @@
 import os
 from importlib import import_module
+from pathlib import Path
 
 import pytest
 
@@ -13,6 +14,7 @@ from risovalka.gamekit import (
     Shader,
     Size,
     Vector,
+    file,
     game as default_game,
     geometry,
     geometry_tools,
@@ -222,6 +224,11 @@ def test_singleton_game_is_exported():
     assert default_game.window_size == Size(800, 600)
     assert not hasattr(default_game, "window_width")
     assert not hasattr(default_game, "window_height")
+
+
+def test_file_helpers_return_project_and_caller_folders():
+    assert file.get_project_root_folder() == Path(os.getcwd())
+    assert file.get_current_folder().name == "tests"
 
 
 def test_no_physics_or_collision_api():

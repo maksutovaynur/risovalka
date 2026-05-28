@@ -1,13 +1,10 @@
 import random
-import sys
-from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-
-from risovalka.gamekit import Object, Point, Rotation, Size, Vector, game, geometry
+from risovalka.gamekit import Object, Point, Rotation, Size, Vector, file, game, geometry
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CURRENT_FOLDER = file.get_current_folder()
+PROJECT_ROOT = file.get_project_root_folder()
 MASCOT_LOGO = PROJECT_ROOT / "assets" / "brand" / "risovalka-mascot-logo.png"
 ASSET_ROOT = PROJECT_ROOT / "data" / "assets" / "kenney"
 PARTICLE_ROOT = ASSET_ROOT / "particle-pack" / "PNG (Transparent)"
