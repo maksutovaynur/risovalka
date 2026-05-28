@@ -153,6 +153,31 @@ def test_image_wrapper_only_has_data_and_original_size():
     assert not hasattr(image, "set_size")
 
 
+def test_load_tilemap_slices_image_into_rows_and_columns():
+    pytest.importorskip("pyglet")
+    tilemap = Game().load_tilemap(
+        "data/assets/lpc/base-assets/LPC Base Assets/sprites/people/female_slash.png",
+        6,
+        4,
+    )
+
+    assert len(tilemap) == 4
+    assert all(len(row) == 6 for row in tilemap)
+    assert tilemap[0][0].original_size == Size(64, 64)
+    assert tilemap[3][5].original_size == Size(64, 64)
+
+
+def test_load_sprite_sheet_reads_texture_atlas_xml_in_file_order():
+    pytest.importorskip("pyglet")
+    sprites = Game().load_sprite_sheet(
+        "data/assets/kenney/animal-pack-remastered/Spritesheet/round_nodetails.xml"
+    )
+
+    assert len(sprites) == 30
+    assert sprites[0].original_size == Size(128, 129)
+    assert sprites[1].original_size == Size(129, 129)
+
+
 def test_geometry_tools():
     point = geometry_tools.rotate_point(Point(1, 0), Point(0, 0), 90)
     assert point.x == pytest.approx(0, abs=1e-6)
@@ -194,6 +219,8 @@ def test_public_api_shape_aliases_absent_and_helpers_present():
     assert hasattr(game, "draw_line")
     assert hasattr(game, "draw_text")
     assert hasattr(game, "get_fps")
+    assert hasattr(game, "load_tilemap")
+    assert hasattr(game, "load_sprite_sheet")
     assert not hasattr(game, "circle")
     assert not hasattr(game, "draw_star")
     assert not hasattr(game, "draw_regular_polygon")

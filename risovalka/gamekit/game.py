@@ -6,7 +6,9 @@ import math
 import time
 from collections.abc import Iterable
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
+from xml.etree import ElementTree
 
 from .assets import Image, Shader, make_shader
 from .backend import require_pyglet
@@ -48,7 +50,7 @@ class Game:
         self._fullscreen = False
         self._window_size = Size(width, height)
         self._fill = _FillState("color", Color("black"))
-        self._stroke_color = Color("black")
+        self._stroke_color = Color("transparent")
         self._stroke_width = 1.0
         self._stroke_style = "solid"
         self._keys_down: set[str] = set()
@@ -338,6 +340,49 @@ class Game:
         pyglet = require_pyglet()
         data = pyglet.image.load(str(image_path))
         return Image(data=data, original_size=Size(data.width, data.height))
+
+    def load_tilemap(self, path, num_column: int, num_row: int) -> list[list[Image]]:
+        source = self.load_image(path)
+        num_column = int(num_column)
+        num_row = int(num_row)
+        if num_column <= 0 or num_row <= 0:
+            raise ValueError("Tilemap column and row counts must be positive")
+        if source.original_size.width % num_column != 0 or source.original_size.height % num_row != 0:
+            raise ValueError("Tilemap image size must divide evenly by column and row counts")
+
+        tile_width = source.original_size.width // num_column
+        tile_height = source.original_size.height // num_row
+        rows = []
+        for row in range(num_row):
+            images = []
+            for column in range(num_column):
+                data = source.data.get_region(
+                    column * tile_width,
+                    source.original_size.height - (row + 1) * tile_height,
+                    tile_width,
+                    tile_height,
+                )
+                images.append(Image(data=data, original_size=Size(tile_width, tile_height)))
+            rows.append(images)
+        return rows
+
+    def load_sprite_sheet(self, xml_path) -> list[Image]:
+        xml_path = Path(xml_path)
+        root = ElementTree.parse(xml_path).getroot()
+        image_path = root.attrib.get("imagePath")
+        if image_path is None:
+            raise ValueError(f"Sprite sheet XML has no imagePath: {xml_path}")
+
+        source = self.load_image(xml_path.parent / image_path)
+        images = []
+        for item in root.findall("SubTexture"):
+            x = int(item.attrib["x"])
+            y = int(item.attrib["y"])
+            width = int(item.attrib["width"])
+            height = int(item.attrib["height"])
+            data = source.data.get_region(x, source.original_size.height - y - height, width, height)
+            images.append(Image(data=data, original_size=Size(width, height)))
+        return images
 
     def load_shader(self, shader_source: str) -> Shader:
         return make_shader(shader_source)
