@@ -73,11 +73,29 @@ def marp_command() -> list[str]:
     raise RuntimeError("Marp CLI is required. Install `marp` or make `npx` available.")
 
 
+def chrome_args() -> list[str]:
+    chrome = shutil.which("chromium") or shutil.which("chromium-browser")
+    chrome = chrome or shutil.which("google-chrome") or shutil.which("google-chrome-stable")
+
+    if not chrome:
+        downloaded = sorted(ROOT.glob("chrome/**/chrome-linux64/chrome"), reverse=True)
+        if downloaded:
+            chrome = str(downloaded[0])
+
+    if not chrome:
+        return []
+
+    return ["--browser", "chrome", "--browser-path", chrome]
+
+
 def build_marp(source: Path, destination: Path) -> None:
     run(
         marp_command()
         + [
             "--allow-local-files",
+            "--browser-timeout",
+            "120",
+            *chrome_args(),
             "--pdf",
             "--output",
             str(destination),
@@ -95,7 +113,6 @@ def build_markdown(source: Path, destination: Path) -> None:
     if not wkhtmltopdf:
         raise RuntimeError("wkhtmltopdf is required to render Markdown PDFs.")
 
-    title = source.stem.replace("_", " ")
     with tempfile.TemporaryDirectory(prefix="risovalka-pdf-") as tmp:
         html_path = Path(tmp) / f"{source.stem}.html"
         run(
@@ -107,7 +124,7 @@ def build_markdown(source: Path, destination: Path) -> None:
                 "html5",
                 "--standalone",
                 "--metadata",
-                f"title={title}",
+                f"pagetitle={source.stem}",
                 "--css",
                 str(STYLE_PATH),
                 "--output",

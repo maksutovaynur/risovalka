@@ -9,64 +9,67 @@ size: 16:9
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 26px;
-  margin-top: 40px;
+  gap: 32px;
+  margin-top: 54px;
 }
 .big-card {
   border: 4px solid #1d4ed8;
   border-radius: 14px;
-  padding: 34px;
-  min-height: 105px;
+  padding: 42px;
+  min-height: 130px;
   background: #e0f2fe;
+  font-size: 38px;
   font-weight: 800;
 }
 .achievement-map,
 .code-map {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 55px;
+  gap: 32px;
+  margin-top: 68px;
 }
 .achievement-map span,
 .code-map span {
   background: #fff7ed;
   border: 4px solid #f97316;
   border-radius: 12px;
-  padding: 26px;
+  padding: 36px 28px;
+  font-size: 36px;
   text-align: center;
   font-weight: 800;
 }
 .pipeline {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin-top: 85px;
+  gap: 24px;
+  margin-top: 98px;
 }
 .pipeline div {
   background: #dcfce7;
   border: 4px solid #16a34a;
   border-radius: 12px;
-  padding: 30px 18px;
-  min-height: 85px;
+  padding: 40px 18px;
+  min-height: 116px;
+  font-size: 32px;
   text-align: center;
   font-weight: 800;
 }
 .diagram-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 22px;
-  margin-top: 60px;
+  gap: 28px;
+  margin-top: 76px;
 }
 .formula {
   background: #eef2ff;
   border-left: 14px solid #6366f1;
-  padding: 20px 28px;
+  padding: 28px 34px;
   font-family: ui-monospace, Consolas, monospace;
-  font-size: 36px;
+  font-size: 44px;
 }
 .variable-box {
-  width: 430px;
-  margin: 85px auto 0;
+  width: 560px;
+  margin: 78px auto 0;
   border: 6px solid #1d4ed8;
   border-radius: 18px;
   overflow: hidden;
@@ -75,14 +78,14 @@ size: 16:9
 .variable-box b {
   display: block;
   background: #dbeafe;
-  padding: 28px;
-  font-size: 54px;
+  padding: 36px;
+  font-size: 64px;
 }
 .variable-box span {
   display: block;
   background: white;
-  padding: 38px;
-  font-size: 78px;
+  padding: 48px;
+  font-size: 92px;
   font-weight: 900;
 }
 </style>
@@ -91,7 +94,7 @@ size: 16:9
 
 # P1. Рисуем первый игровой мир
 
-![bg right:50%](images/scene_goal.png)
+![bg right:56% contain](images/scene_goal.png)
 
 Окно, координаты, фигуры, картинки и первые кадры.
 
@@ -110,7 +113,7 @@ size: 16:9
 
 # С чего начнём
 
-![bg right:50%](images/scene_goal.png)
+![bg right:56% contain](images/scene_goal.png)
 
 Сегодня мы впервые заставим компьютер нарисовать наш игровой мир.
 
@@ -122,7 +125,7 @@ size: 16:9
 
 # Окно игры
 
-![bg right:52%](images/project_parts.png)
+![bg right:58% contain](images/project_parts.png)
 
 Окно — это сцена.
 
@@ -147,7 +150,7 @@ size: 16:9
 
 # Экран как лист в клетку
 
-![bg right:55%](images/coordinate_grid.png)
+![bg right:58% contain](images/coordinate_grid.png)
 
 Чтобы поставить объект, компьютеру нужен адрес.
 
@@ -157,7 +160,7 @@ size: 16:9
 
 # Координаты
 
-![bg right:55%](images/coordinate_grid.png)
+![bg right:58% contain](images/coordinate_grid.png)
 
 `x` — вправо.
 
@@ -200,7 +203,7 @@ size: 16:9
 
 # Растр
 
-![bg right:52%](images/raster_pixels.png)
+![bg right:58% contain](images/raster_pixels.png)
 
 Экран — сетка маленьких квадратиков.
 
@@ -210,7 +213,7 @@ size: 16:9
 
 # Цвет как рецепт
 
-![bg right:52%](images/rgb_recipe.png)
+![bg right:58% contain](images/rgb_recipe.png)
 
 RGB:
 
@@ -226,7 +229,7 @@ RGB и HEX — секретный уровень для точной настр�
 
 # Картинки из файлов
 
-![bg right:50%](images/final_showcase.png)
+![bg right:56% contain](images/final_showcase.png)
 
 В игре можно рисовать не только фигуры.
 
@@ -236,7 +239,7 @@ RGB и HEX — секретный уровень для точной настр�
 
 # Вектор
 
-![bg right:52%](images/vector_arrow.png)
+![bg right:58% contain](images/vector_arrow.png)
 
 Вектор отвечает:
 
@@ -259,7 +262,7 @@ RGB и HEX — секретный уровень для точной настр�
 
 # Ошибка дня
 
-![bg right:50%](images/draw_order_bug.png)
+![bg right:56% contain](images/draw_order_bug.png)
 
 Фон нарисовали после героя.
 
@@ -358,7 +361,7 @@ RGB и HEX — секретный уровень для точной настр�
 
 # Финальный показ
 
-![bg right:52%](images/final_showcase.png)
+![bg right:58% contain](images/final_showcase.png)
 
 Покажите свой мир и ответьте:
 

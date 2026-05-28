@@ -9,43 +9,46 @@ size: 16:9
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 26px;
-  margin-top: 45px;
+  gap: 32px;
+  margin-top: 58px;
 }
 .big-card {
   border: 4px solid #1d4ed8;
   border-radius: 14px;
-  padding: 32px;
-  min-height: 105px;
+  padding: 40px;
+  min-height: 128px;
   background: #e0f2fe;
+  font-size: 40px;
   font-weight: 800;
 }
 .pipeline {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin-top: 80px;
+  gap: 24px;
+  margin-top: 96px;
 }
 .pipeline div {
   background: #dcfce7;
   border: 4px solid #16a34a;
   border-radius: 12px;
-  padding: 28px 16px;
-  min-height: 82px;
+  padding: 38px 18px;
+  min-height: 112px;
+  font-size: 34px;
   text-align: center;
   font-weight: 800;
 }
 .tool-map {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  margin-top: 50px;
+  gap: 30px;
+  margin-top: 68px;
 }
 .tool-map span {
   background: #fff7ed;
   border: 4px solid #f97316;
   border-radius: 12px;
-  padding: 24px;
+  padding: 36px;
+  font-size: 40px;
   text-align: center;
   font-weight: 800;
 }
@@ -55,7 +58,7 @@ size: 16:9
 
 # P0. Как код оживляет игры
 
-![bg right:50%](images/p0_code_to_game.png)
+![bg right:56% contain](images/p0_code_to_game.png)
 
 Зачем понимать программирование в эпоху ИИ-агентов.
 
@@ -63,7 +66,7 @@ size: 16:9
 
 # Каждая игра начиналась с команд
 
-![bg right:50%](images/p0_code_to_game.png)
+![bg right:56% contain](images/p0_code_to_game.png)
 
 Когда-то Minecraft, Roblox, навигатор и ИИ-бот были набором точных инструкций.
 
@@ -73,7 +76,7 @@ size: 16:9
 
 # Программы вокруг нас
 
-![bg right:54%](images/p0_programs_around.png)
+![bg right:58% contain](images/p0_programs_around.png)
 
 Смартфон, сайт, игра, робот, умная колонка, ИИ-помощник — всё это программы.
 
@@ -81,7 +84,7 @@ size: 16:9
 
 # Что делает компьютер
 
-![bg right:54%](images/p0_input_process_output.png)
+![bg right:58% contain](images/p0_input_process_output.png)
 
 Он получает ввод, выполняет команды и показывает результат.
 
@@ -140,7 +143,7 @@ size: 16:9
 
 # Почему начинаем с игр
 
-![bg right:50%](images/scene_goal.png)
+![bg right:56% contain](images/scene_goal.png)
 
 В игре результат видно сразу.
 
@@ -150,7 +153,7 @@ size: 16:9
 
 # Ошибки — это не провал
 
-![bg right:50%](images/draw_order_bug.png)
+![bg right:56% contain](images/draw_order_bug.png)
 
 Если вышло странно, компьютер показывает, где мы с ним не договорились.
 
@@ -160,7 +163,7 @@ size: 16:9
 
 # ИИ-агенты уже помогают писать код
 
-![bg right:52%](images/p0_ai_driver.png)
+![bg right:58% contain](images/p0_ai_driver.png)
 
 Но человек всё равно выбирает цель, проверяет результат и управляет работой.
 
@@ -178,7 +181,7 @@ size: 16:9
 
 # Что будет на курсе
 
-![bg right:54%](images/p0_course_path.png)
+![bg right:58% contain](images/p0_course_path.png)
 
 Рисуем → оживляем → управляем → добавляем правила → показываем свою игру.
 
@@ -199,9 +202,8 @@ size: 16:9
 
 # Главная цель курса
 
-![bg right:52%](images/final_showcase.png)
+![bg right:58% contain](images/final_showcase.png)
 
 У каждого должен быть момент:
 
 **«Смотрите, это сделал я»**
-

@@ -30,6 +30,7 @@ htmlcov/
 
 # Tool locks and local dependency state
 pip-wheel-metadata/
+chrome/
 
 # IDE/editor local state. Keep .vscode shared settings trackable.
 .idea/
