@@ -24,7 +24,7 @@
 
 | Функции и выражения | Пример | Описание | Применил |
 | --- | --- | --- | --- |
-| `game.set_window_title()` | `game.set_window_title("Моя игра")` | Задаёт название окна. | ☐ |
+| `game.set_window_title()` | `game.set_window_title("Игра")` | Задаёт название окна. | ☐ |
 | `game.set_window_size()` | `game.set_window_size(800, 520)` | Задаёт размер окна в пикселях. | ☐ |
 | `game.open()` | `game.open()` | Открывает окно игры. | ☐ |
 | `while` | `while not game.is_close_clicked():` | Повторяет команды, пока окно не закрыто. | ☐ |
@@ -58,17 +58,17 @@
 | --- | --- | --- | --- |
 | `game.set_fill_color()` | `game.set_fill_color("#22c55e")` | Выбирает цвет заливки для следующих фигур и текста. | ☐ |
 | `game.set_stroke_color()` | `game.set_stroke_color("transparent")` | Выбирает цвет обводки. `transparent` убирает обводку. | ☐ |
-| `game.draw_rectangle()` | `game.draw_rectangle(position, size)` | Рисует прямоугольник. Удобно для героя, стены или пола. | ☐ |
-| `game.draw_circle()` | `game.draw_circle(Point(100, 100), 20)` | Рисует круг. | ☐ |
-| `game.draw_text()` | `game.draw_text("Счёт", Point(20, 20), 24)` | Пишет текст на экране. | ☐ |
-| `game.draw_image()` | `game.draw_image(hero_image, Point(100, 100), Size(64, 64))` | Рисует картинку из файла. | ☐ |
-| `game.load_image()` | `hero_image = game.load_image("hero.png")` | Загружает картинку, чтобы потом её нарисовать. | ☐ |
+| `game.draw_rectangle()` | `game.draw_rectangle(p, size)` | Рисует прямоугольник. Удобно для героя, стены или пола. | ☐ |
+| `game.draw_circle()` | `game.draw_circle(p, 20)` | Рисует круг. | ☐ |
+| `game.draw_text()` | `game.draw_text("Счёт", p, 24)` | Пишет текст на экране. | ☐ |
+| `game.draw_image()` | `game.draw_image(img, point, size)` | Рисует картинку из файла. | ☐ |
+| `game.load_image()` | `img = game.load_image("hero.png")` | Загружает картинку, чтобы потом её нарисовать. | ☐ |
 
 ## Данные игры
 
 | Функции и выражения | Пример | Описание | Применил |
 | --- | --- | --- | --- |
-| `Object` | `hero = Object(position=Point(100, 200), speed=260)` | Хранит данные одного объекта игры. | ☐ |
+| `Object` | `hero = Object(x=100, speed=260)` | Хранит данные одного объекта игры. | ☐ |
 | `Point` | `Point(100, 200)` | Позиция на экране: `x` и `y`. | ☐ |
 | `Vector` | `direction = Vector(1, 0)` | Направление или сдвиг. | ☐ |
 | `Size` | `Size(48, 48)` | Размер: ширина и высота. | ☐ |

@@ -50,6 +50,7 @@ section {
   font-size: 34px;
   line-height: 1.45;
   margin-top: 46px;
+  white-space: nowrap;
 }
 .split {
   display: grid;
@@ -95,6 +96,10 @@ section {
   margin-top: 70px;
   font-family: Consolas, monospace;
   font-size: 40px;
+  white-space: nowrap;
+}
+.nowrap {
+  white-space: nowrap;
 }
 </style>
 
@@ -180,7 +185,7 @@ if game.is_key_down("right"):<br>
 
 <div class="formula">position += direction * speed * dt</div>
 
-`dt` — сколько времени прошло с прошлого кадра.
+<span class="nowrap">`dt` — сколько времени прошло с прошлого кадра.</span>
 
 Так движение не зависит от скорости компьютера.
 
@@ -201,9 +206,8 @@ if game.is_key_down("right"):<br>
 
 Открой:
 
-`lessons/lesson2/samples/01_keyboard_game_loop.py`
+<span class="nowrap">`lessons/lesson2/samples/01_keyboard_game_loop.py`</span>
 
 Потом попробуй исправить:
 
-`lessons/lesson2/puzzles/01_hero_escapes_screen.py`
-
+<span class="nowrap">`lessons/lesson2/puzzles/01_hero_escapes_screen.py`</span>

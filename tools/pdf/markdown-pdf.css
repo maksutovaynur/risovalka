@@ -58,15 +58,18 @@ code {
   font-family: "JetBrains Mono", Consolas, monospace;
   font-size: 0.9em;
   padding: 1px 4px;
+  overflow-wrap: normal;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 pre {
   background: #f8fafc;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
   padding: 10pt;
-  white-space: pre-wrap;
+  white-space: pre;
 }
 
 pre code {
@@ -76,6 +79,7 @@ pre code {
 
 table {
   border-collapse: collapse;
+  font-size: 9.4pt;
   page-break-inside: avoid;
   table-layout: fixed;
   width: 100%;
@@ -92,10 +96,36 @@ tr {
 th,
 td {
   border: 1px solid #94a3b8;
-  overflow-wrap: anywhere;
-  padding: 6pt 8pt;
+  overflow-wrap: break-word;
+  padding: 4pt 5pt;
   text-align: left;
   vertical-align: top;
+}
+
+td code {
+  font-size: 0.86em;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+  width: 24%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 34%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 32%;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+  width: 10%;
+  text-align: center;
+  white-space: nowrap;
 }
 
 th {
