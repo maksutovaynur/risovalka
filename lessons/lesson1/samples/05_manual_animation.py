@@ -1,36 +1,20 @@
-from risovalka.gamekit import game
+from risovalka.gamekit import game, geometry_tools
 
-
-game.set_window_title("Урок 1: три кадра вручную")
-game.set_window_size(800, 600)
 game.open()
 
-game.set_fill_color("#20242d")
-game.clear_canvas()
-game.draw_text("Кадр 1", (38, 32), size=28, color="white")
-game.set_fill_color("#404857")
-game.draw_rectangle(90, 410, 620, 35)
-game.set_fill_color("#6f5cff")
-game.draw_circle(170, 350, 38)
-game.show_canvas()
-game.sleep(0.65)
+star = geometry_tools.generate_star((200, 200), 20, 100, 8)
 
-game.set_fill_color("#20242d")
-game.clear_canvas()
-game.draw_text("Кадр 2", (38, 32), size=28, color="white")
-game.set_fill_color("#404857")
-game.draw_rectangle(90, 410, 620, 35)
-game.set_fill_color("#44aaff")
-game.draw_circle(320, 290, 38)
-game.show_canvas()
-game.sleep(0.65)
+уголПоворота = 0
+while not game.is_close_clicked():
+    dt = game.get_delta_time()
+    уголПоворота += 100 * dt
+    game.set_fill_color("yellow")
+    game.clear_canvas()
+    game.set_fill_color("green")
+    star_rotated = geometry_tools.rotate_polygon(star, уголПоворота, (200, 200))
+    game.draw_polygon(star_rotated)
+    game.show_canvas()
+    game.set_window_title(f'Частота кадров: {game.get_fps():.0f}')
+    game.sleep(0.01)
 
-game.set_fill_color("#20242d")
-game.clear_canvas()
-game.draw_text("Кадр 3", (38, 32), size=28, color="white")
-game.draw_text("Позже это будет делать игровой цикл", (38, 64), size=18, color="#ffd166")
-game.set_fill_color("#404857")
-game.draw_rectangle(90, 410, 620, 35)
-game.set_fill_color("#4bb35f")
-game.draw_circle(500, 340, 38)
-game.wait_close()
+# game.wait_close()
