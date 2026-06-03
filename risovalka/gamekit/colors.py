@@ -19,6 +19,8 @@ _NAMED_COLORS: dict[str, tuple[int, int, int, int]] = {
     "grey": (128, 128, 128, 255),
 }
 
+_NAMED_COLORS['белый'] = _NAMED_COLORS['white']
+
 
 class Color:
     def __init__(self, red, green=None, blue=None, alpha=255):

@@ -32,8 +32,8 @@ def update_hero(hero):
         direction = direction / direction.size()
         hero.position += direction * hero.speed * dt
 
-    # Поломка: герой может уйти за край экрана.
-    # Подсказка: после движения нужно ограничить x и y размерами окна.
+    hero.position.x = max(0, min(708, hero.position.x))
+    hero.position.y = max(0, min(408, hero.position.y))
 
 
 def draw_scene(hero):
