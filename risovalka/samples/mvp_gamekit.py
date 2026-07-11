@@ -55,9 +55,9 @@ def load_assets():
 
 
 def create_world():
-    return Object(
-        hero=Object(position=Point(400, 260), angle=0, angular_speed=100, speed=180),
-        enemies=[create_enemy() for _ in range(5)],
+    world = Object(
+        hero=Object(position=Point(0, 0), angle=0, angular_speed=100, speed=180),
+        enemies=[],
         bullets=[],
         spark_trail=[],
         explosions=[],
@@ -67,20 +67,24 @@ def create_world():
         score=0,
         game_over=False,
         mouse=Point(0, 0),
+        mouse_world=Point(0, 0),
     )
+    world.enemies = [create_enemy(world) for _ in range(5)]
+    return world
 
 
-def create_enemy():
+def create_enemy(world):
     spawn_margin = 120
+    viewport = camera_viewport(world)
     side = random.choice(["left", "right", "top", "bottom"])
     if side == "left":
-        position = Point(-spawn_margin, random.uniform(0, game.window_size.height))
+        position = Point(viewport.left - spawn_margin, random.uniform(viewport.top, viewport.bottom))
     elif side == "right":
-        position = Point(game.window_size.width + spawn_margin, random.uniform(0, game.window_size.height))
+        position = Point(viewport.right + spawn_margin, random.uniform(viewport.top, viewport.bottom))
     elif side == "top":
-        position = Point(random.uniform(0, game.window_size.width), -spawn_margin)
+        position = Point(random.uniform(viewport.left, viewport.right), viewport.top - spawn_margin)
     else:
-        position = Point(random.uniform(0, game.window_size.width), game.window_size.height + spawn_margin)
+        position = Point(random.uniform(viewport.left, viewport.right), viewport.bottom + spawn_margin)
 
     shape = random.choice(["hex", "box", "star"])
     if shape == "hex":
@@ -106,6 +110,7 @@ def create_enemy():
 def update_world(world):
     dt = game.get_delta_time()
     world.mouse = game.get_mouse_position()
+    world.mouse_world = screen_to_world(world, world.mouse)
 
     if world.game_over:
         update_explosions(world.explosions, dt)
@@ -116,7 +121,7 @@ def update_world(world):
     update_enemies(world, dt)
     update_sparks(world.spark_trail, dt)
     update_shooting(world)
-    update_bullets(world.bullets, dt)
+    update_bullets(world, dt)
     resolve_bullet_collisions(world)
     resolve_hero_collision(world)
     update_explosions(world.explosions, dt)
@@ -124,7 +129,7 @@ def update_world(world):
 
 def update_enemies(world, dt):
     if len(world.enemies) < MAX_ENEMIES and game.get_time() >= world.next_enemy_time:
-        world.enemies.append(create_enemy())
+        world.enemies.append(create_enemy(world))
         world.next_enemy_time = game.get_time() + random.uniform(0.65, 1.35)
 
     for enemy in world.enemies:
@@ -168,7 +173,7 @@ def update_shooting(world):
     if not game.is_mouse_down("left") or game.get_time() < world.next_bullet_time:
         return
 
-    bullet = create_bullet(world.hero.position, world.mouse)
+    bullet = create_bullet(world.hero.position, world.mouse_world)
     if bullet is None:
         return
 
@@ -193,19 +198,20 @@ def create_bullet(hero_position, mouse_position):
     )
 
 
-def update_bullets(bullets, dt):
-    for bullet in bullets:
+def update_bullets(world, dt):
+    for bullet in world.bullets:
         bullet.position += bullet.velocity * dt
         bullet.age += dt
 
-    bullets[:] = [bullet for bullet in bullets if is_bullet_alive(bullet)]
+    world.bullets[:] = [bullet for bullet in world.bullets if is_bullet_alive(world, bullet)]
 
 
-def is_bullet_alive(bullet):
+def is_bullet_alive(world, bullet):
+    viewport = camera_viewport(world, margin=80)
     return (
         bullet.age < 1.6
-        and -40 <= bullet.position.x <= game.window_size.width + 40
-        and -40 <= bullet.position.y <= game.window_size.height + 40
+        and viewport.left <= bullet.position.x <= viewport.right
+        and viewport.top <= bullet.position.y <= viewport.bottom
     )
 
 
@@ -255,64 +261,68 @@ def create_timed_effect(position):
 
 def draw_world(world, assets):
     assets.shader.set_param("time", game.get_time())
-    game.set_fill_shader(assets.shader)
+    game.set_fill_shader(assets.shader, start_position=background_start_position(world))
     game.clear_canvas()
 
-    draw_enemies(world.enemies)
-    draw_sparks(world.spark_trail, assets.spark_images, world.hero.angle)
-    draw_hero(world.hero, assets.star_texture)
-    draw_bullets(world.bullets)
-    draw_explosions(world.explosions, assets.explosion_images)
+    draw_enemies(world)
+    draw_sparks(world, assets.spark_images)
+    draw_hero(world, assets.star_texture)
+    draw_bullets(world)
+    draw_explosions(world, assets.explosion_images)
     draw_cursor(world.mouse, assets.target_image)
     draw_hud(world)
     if world.game_over:
         draw_game_over(world.score)
 
 
-def draw_enemies(enemies):
-    for enemy in enemies:
+def draw_enemies(world):
+    for enemy in world.enemies:
         game.set_fill_color(enemy.color)
-        game.draw_polygon(polygon_points(enemy))
+        game.draw_polygon(polygon_points(enemy, world_to_screen(world, enemy.position)))
 
 
-def draw_sparks(spark_trail, spark_images, hero_angle):
-    for spark in spark_trail:
+def draw_sparks(world, spark_images):
+    for spark in world.spark_trail:
         frame_index = animation_frame(spark.age, 0.09, spark_images)
         spark_size = 48 * (1 - spark.age / 0.45) + 10
+        screen_position = world_to_screen(world, spark.position)
         draw_centered_image(
             spark_images[frame_index],
-            spark.position,
+            screen_position,
             Size(spark_size, spark_size),
-            Rotation(hero_angle + spark.age * 360, spark.position),
+            Rotation(world.hero.angle + spark.age * 360, screen_position),
         )
 
 
-def draw_hero(hero, star_texture):
+def draw_hero(world, star_texture):
+    hero = world.hero
+    screen_position = screen_center()
     game.set_fill_texture(
         star_texture,
-        start_position=hero.position - Size(STAR_SIZE.width / 2, STAR_SIZE.height / 2),
+        start_position=screen_position - Size(STAR_SIZE.width / 2, STAR_SIZE.height / 2),
         size=STAR_SIZE,
-        rotation=Rotation(hero.angle, hero.position),
+        rotation=Rotation(hero.angle, screen_position),
         repeat=False,
     )
-    game.draw_polygon(moved_polygon(STAR_POLYGON, hero.position, hero.angle))
+    game.draw_polygon(moved_polygon(STAR_POLYGON, screen_position, hero.angle))
 
 
-def draw_bullets(bullets):
+def draw_bullets(world):
     game.set_fill_color("#ffd34dff")
-    for bullet in bullets:
-        game.draw_circle(bullet.position, bullet.radius)
+    for bullet in world.bullets:
+        game.draw_circle(world_to_screen(world, bullet.position), bullet.radius)
 
 
-def draw_explosions(explosions, explosion_images):
-    for explosion in explosions:
+def draw_explosions(world, explosion_images):
+    for explosion in world.explosions:
         frame_index = animation_frame(explosion.age, 0.125, explosion_images)
         explosion_size = 72 * (1 - explosion.age / 0.5) + 28
+        screen_position = world_to_screen(world, explosion.position)
         draw_centered_image(
             explosion_images[frame_index],
-            explosion.position,
+            screen_position,
             Size(explosion_size, explosion_size),
-            Rotation(explosion.age * 500, explosion.position),
+            Rotation(explosion.age * 500, screen_position),
         )
 
 
@@ -340,8 +350,8 @@ def animation_frame(age, frame_duration, frames):
     return min(int(age / frame_duration), len(frames) - 1)
 
 
-def polygon_points(target):
-    return moved_polygon(target.points, target.position, target.angle)
+def polygon_points(target, position=None):
+    return moved_polygon(target.points, position or target.position, target.angle)
 
 
 def moved_polygon(points, position, angle=0):
@@ -363,6 +373,32 @@ def is_point_inside_polygon(point, polygon):
 
 def random_vector(min_value, max_value):
     return Vector(random.uniform(min_value, max_value), random.uniform(min_value, max_value))
+
+
+def screen_center():
+    return Point(game.window_size.width / 2, game.window_size.height / 2)
+
+
+def world_to_screen(world, point):
+    return screen_center() + (point - world.hero.position)
+
+
+def screen_to_world(world, point):
+    return world.hero.position + (point - screen_center())
+
+
+def camera_viewport(world, margin=0):
+    center = screen_center()
+    return Object(
+        left=world.hero.position.x - center.x - margin,
+        right=world.hero.position.x + center.x + margin,
+        top=world.hero.position.y - center.y - margin,
+        bottom=world.hero.position.y + center.y + margin,
+    )
+
+
+def background_start_position(world):
+    return Point(-world.hero.position.x, -world.hero.position.y)
 
 
 if __name__ == "__main__":
